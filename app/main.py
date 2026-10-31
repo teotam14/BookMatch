@@ -6,7 +6,6 @@ import streamlit as st
 
 from app.recommender import RecomendadorLibros
 
-
 # --------------------------------------------------
 # Configuración general
 # --------------------------------------------------
