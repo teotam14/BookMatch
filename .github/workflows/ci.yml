@@ -1,0 +1,30 @@
+name: BookMatch CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quality-checks:
+    name: Ruff y pytest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Sincronizar dependencias
+        run: uv sync --frozen
+
+      - name: Verificar código con Ruff
+        run: uv run ruff check .
+
+      - name: Ejecutar pruebas
+        run: uv run pytest -v
