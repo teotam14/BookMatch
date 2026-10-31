@@ -10,7 +10,7 @@ on:
 
 jobs:
   quality-checks:
-    name: Ruff y pytest
+    name: Ruff, pytest y mypy
     runs-on: ubuntu-latest
 
     steps:
@@ -28,3 +28,6 @@ jobs:
 
       - name: Ejecutar pruebas
         run: uv run pytest -v
+
+      - name: Verificar tipado con mypy
+        run: uvx --with pandas-stubs --with scipy-stubs --with scikit-learn --with streamlit mypy app

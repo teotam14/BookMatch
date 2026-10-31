@@ -27,7 +27,7 @@ st.set_page_config(
 # Estilos visuales
 # --------------------------------------------------
 
-def aplicar_estilos():
+def aplicar_estilos() -> None:
     """Aplica los estilos visuales de BookMatch."""
 
     st.markdown(
@@ -118,7 +118,7 @@ def aplicar_estilos():
 # --------------------------------------------------
 
 @st.cache_resource
-def cargar_recomendador():
+def cargar_recomendador() -> RecomendadorLibros:
     """Carga el catálogo y la matriz TF-IDF."""
 
     return RecomendadorLibros(
@@ -131,14 +131,17 @@ def cargar_recomendador():
 # Presentación de libros
 # --------------------------------------------------
 
-def mostrar_libro(libro, mostrar_similitud=False):
+def mostrar_libro(
+    libro: pd.Series,
+    mostrar_similitud: bool = False,
+) -> None:
     """Muestra la portada y los datos de un libro."""
 
     portada = libro.get("cover_image_url", "")
 
     if pd.notna(portada) and str(portada).strip():
         st.image(
-            portada,
+            str(portada),
             use_container_width=True,
         )
     else:
@@ -171,7 +174,9 @@ def mostrar_libro(libro, mostrar_similitud=False):
 # Aplicación principal
 # --------------------------------------------------
 
-def main():
+def main() -> None:
+    """Ejecuta la aplicación de BookMatch."""
+
     aplicar_estilos()
 
     recomendador = cargar_recomendador()
@@ -261,7 +266,7 @@ def main():
     ][0]
 
     recomendaciones = recomendador.recomendar(
-        indice_libro,
+        int(indice_libro),
         cantidad=3,
     )
 
